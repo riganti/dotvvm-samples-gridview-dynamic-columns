@@ -1,0 +1,31 @@
+﻿@viewModel GridViewDynamicColumns.ViewModels.DefaultViewModel, GridViewDynamicColumns
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <dot:Repeater DataSource="{value: Categories}">
+        <dot:RadioButton Text="{value: Name}" GroupName="Categories" CheckedValue="{value: _this}" CheckedItem="{value: _parent.SelectedCategory}" />
+    </dot:Repeater>
+
+    <fieldset>
+        <legend>Show Columns</legend>
+        <dot:Repeater DataSource="{value: SelectedCategory.AllColumns}">
+            <dot:CheckBox Text="{value: Name}" CheckedValue="{value: PropertyName}" CheckedItems="{value: _parent.SelectedCategory.SelectedColumnNames}" />
+        </dot:Repeater>
+        <dot:Button Text="Refresh" Click="{command: Refresh()}" />
+        <dot:Button Text="Export" Click="{command: Export()}" />
+    </fieldset>
+
+    <bp:GridView DataSource="{value: Data}" id="GridView" PostBack.Update="true">
+        <Columns>
+            <bp:GridViewTextColumn HeaderText="Id" Value="{value: Id}" />
+            <bp:GridViewTextColumn HeaderText="Name" Value="{value: Name}" />
+        </Columns>
+    </bp:GridView>
+
+</body>
+</html>
